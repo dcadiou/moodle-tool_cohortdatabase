@@ -468,6 +468,9 @@ class tool_cohortdatabase_sync {
 
         // Connect to the external database (forcing new connection).
         $extdb = ADONewConnection($this->config->dbtype);
+        if (empty($this->config->verifycert)) {
+            $extdb->setConnectionParameter('TrustServerCertificate', 1);
+        }
         if ($this->config->debugdb) {
             $extdb->debug = true;
             ob_start(); // Start output buffer to allow later use of the page headers.
