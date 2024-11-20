@@ -75,6 +75,10 @@ if ($hassiteconfig) {
         get_string('debugdb', 'tool_cohortdatabase'),
         get_string('debugdb_desc', 'tool_cohortdatabase'), 0));
 
+    $settings->add(new admin_setting_configcheckbox('tool_cohortdatabase/verifycert',
+        get_string('verifycert', 'tool_cohortdatabase'),
+        get_string('verifycert_desc', 'tool_cohortdatabase'), 1));
+
     $settings->add(new admin_setting_configtext('tool_cohortdatabase/minrecords',
         get_string('minrecords', 'tool_cohortdatabase'),
         get_string('minrecords_desc', 'tool_cohortdatabase'), 10));

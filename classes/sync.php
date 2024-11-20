@@ -219,7 +219,6 @@ class tool_cohortdatabase_sync {
 
         // This iterates over each cohort - it might be better to batch process these and do multiple cohorts at a time,
         // but for now we process each cohort individually.
-        $missingusers = array(); // Users that need to be created.
         $newmembers = array();
         $needusers = array(); // Contains a list of external user ids we need to get for insert.
         $countdeletes = 0;
@@ -319,6 +318,7 @@ class tool_cohortdatabase_sync {
             $chunksize = 500; // Using 500 as this is the max allowed in one chunk for insert_records in pg anyway.
             $memberchunks = array_chunk($newmembers, $chunksize, true);
             foreach ($memberchunks as $members) {
+                $missingusers = []; // Users that need to be created.
                 // First we need to map the userid in external table with userid in moodle..
                 foreach ($members as $id => $newmember) {
                     $sql = "SELECT ".$localuserfield.", id
@@ -475,6 +475,9 @@ class tool_cohortdatabase_sync {
 
         // Connect to the external database (forcing new connection).
         $extdb = ADONewConnection($this->config->dbtype);
+        if (empty($this->config->verifycert)) {
+            $extdb->setConnectionParameter('TrustServerCertificate', 1);
+        }
         if ($this->config->debugdb) {
             $extdb->debug = true;
             ob_start(); // Start output buffer to allow later use of the page headers.

@@ -92,3 +92,5 @@ If set to not in use, it will only delete if the cohort is not attached to a coh
 $string['ifnotinuse'] = 'If not attached to a cohort enrolment.';
 $string['remotecohortdescupdate'] = 'Update description on sync';
 $string['remotecohortdescupdate_desc'] = 'If set to yes, the description field will be updated in Moodle if it is different in the external Db.';
+$string['verifycert'] = 'Trust SSL cert';
+$string['verifycert_desc'] = 'If the server uses a self-signed cert, you may need to untick this box to allow the connection.';
